@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yung IA v3.0</title>
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .chart-container {
+            position: relative;
+            height: 500px!important;
+            width: 100%;
+        }
+        textarea {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid #444;
+            width: 100%;
+            height: 400px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Yung IA v3.0</h1>
+        <textarea readonly>{% if text_code is None %}El servidor aun no esta disponible{% else %}{{text_code}}{% endif %}</textarea>
+        <div class="chart-container">
+            <canvas id="balanceChart"></canvas>
+        </div>
+    </div>
+
+    <script src="{% static 'chart.js' %}"></script>
+    <script>
+        const ctx = document.getElementById('balanceChart').getContext('2d');
+        const balanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for dt in data_set_balance %}
+                        {% if not dt is None %}
+                            {{dt.id}},
+                        {% else %}
+                            "None",
+                        {% endif %}
+                    {% endfor %}
+                ],
+                datasets: [{
+                    label: 'USD',
+                    data: [
+                        {% for dt in data_set_balance %}
+                            {% if not dt is None %}
+                                {{dt.valor_actual}},
+                            {% else %}
+                                0,
+                            {% endif %}
+                        {% endfor %}
+                    ],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Operacion'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Balance ($)'
+                        }
+                    }
+                }
+            }
+        });
+        // Script para actualizar la página cada 10 segundos
+        setInterval(() => {
+            location.reload();
+        }, 10000); // 10000 milisegundos = 10 segundos
+    </script>
+</body>
+</html>
