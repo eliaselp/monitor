@@ -18,11 +18,12 @@ class Index(View):
         data = list(models.dataset.objects.all().order_by('id'))
         # Asegurarse de que la lista tenga al menos 20 elementos
         objetos = []
-        if len(data) < 5:
+        if len(data) < 20:
             # Rellenar con ceros al principio si hay menos de 20 elementos
-            objetos = [None] * (5 - len(data)) + data
+            objetos = [None] * (20 - len(data)) + data
         # Devolver los últimos 20 elementos
-        objetos = objetos[-5:]
+        else:
+            objetos = data[-20:]
         print(objetos)
         return render(request,"index.html",{
             "text_code":text_code,
