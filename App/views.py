@@ -10,7 +10,7 @@ class Index(View):
     def get(self,request):
         text_code = None
         try:
-            if not models.Metadata.objects.filter(key="text_code").exists():
+            if models.Metadata.objects.filter(key="text_code").exists():
                 text_code = models.Metadata.objects.get(key="text_code")
                 text_code = text_code.texto
         except Exception as e:
