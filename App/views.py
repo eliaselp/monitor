@@ -25,7 +25,6 @@ class Index(View):
         # Devolver los últimos 20 elementos
         else:
             objetos = data[-20:]
-        print(objetos)
         return render(request,"index.html",{
             "text_code":text_code,
             'data_set_balance':objetos
