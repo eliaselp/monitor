@@ -10,8 +10,9 @@ class Index(View):
     def get(self,request):
         text_code = None
         try:
-            text_code = models.Metadata.objects.get(key="text_code")
-            text_code = text_code.texto
+            if not models.Metadata.objects.filter(key="text_code") is None:
+                text_code = models.Metadata.objects.get(key="text_code")
+                text_code = text_code.texto
         except Exception as e:
             print(e)
 
