@@ -1,1 +1,10 @@
 django
+django_otp
+qrcode
+bleach
+Pillow
+phonenumbers
+cryptography
+eciespy
+
+pycryptodome

@@ -1,0 +1,205 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="bg-dash-dark-2 py-4">
+    <div class="container-fluid">
+        <h2 class="h5 mb-0">Gestion de Licencias</h2>
+    </div>
+</div>
+<div class="container-fluid py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 py-3 px-0">
+            <li class="breadcrumb-item">
+                <a href="{% url 'admin_panel' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Licencias
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="card mb-4 pr-5 mx-2">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="h4 mb-0">Lista de Usuarios Registrados</h3>
+        <button class="btn-primary py-2" data-bs-toggle="modal" data-bs-target="#registrarlicencia">
+            Registrar Licencia
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="registrarlicencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Licencia</h5>
+                        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'licencias' %}" method="post">
+                            <input type="hidden" name="location" value="index">
+                            {% csrf_token %}                         
+                            <div class="col-lg">
+                                <label class="visually-hidden" for="inlineFormInputGroupUsername">UID</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                        </svg>
+                                    </div>
+                                    <input class="form-control" id="inlineFormInputGroupUsername" type="text" placeholder="UID" name="uid">
+                                </div>
+                            </div>
+                            <div class="col-lg mt-3">
+                                <label class="visually-hidden" for="inlineFormInputGroupUsername">Fecha Límite</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                            <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                        </svg>
+                                    </div>
+                                    <input class="form-control" id="inlineFormInputGroupUsername" type="date" name="fecha_limite">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .auto-width-table {
+            width: auto;
+            table-layout: auto;
+            border-collapse: collapse;
+        }
+        .auto-width-table th, .auto-width-table td {
+            white-space: nowrap;
+        }
+    </style>
+    <div class="card-body pt-0">
+        <div class="table-responsive">
+            <table class="table mb-0 table-striped table-hover auto-width-table">
+                <thead>
+                    <tr class="">
+                        <th>#</th>
+                        <th>Nombres y Apellidos</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>UID</th>
+                        <th>Fecha Límite</th>
+                        <th>Credenciales</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if clientes %}
+                        <style>
+                            .modal-body h5,
+                            .modal-body p {
+                                word-wrap: break-word;
+                                white-space: normal;
+                            }
+                        </style>
+                        {% for cc in clientes %}
+                            <tr>
+                                <th scope="row">{{cc.i}}</th>
+                                <td>{{cc.usuario.nombre}}</td>
+                                <td>{{cc.usuario.username}}</td>
+                                <td>{{cc.usuario.email}}</td>
+                                <td>{{cc.usuario.telefono}}</td>
+                                <td>{{cc.usuario.UID}}</td>
+                                <td>{{cc.usuario.licencia_vencimiento}}</td>
+                                <td class="d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-code" viewBox="0 0 16 16"
+                                    data-bs-toggle="modal" data-bs-target="#credencial_usuario_{{cc.usuario.UUID}}">
+                                        <path d="M6.646 5.646a.5.5 0 1 1 .708.708L5.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708zm2.708 0a.5.5 0 1 0-.708.708L10.293 8 8.646 9.646a.5.5 0 0 0 .708.708l2-2a.5.5 0 0 0 0-.708z"/>
+                                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>
+                                    </svg>
+                                    <div class="modal fade" id="credencial_usuario_{{cc.usuario.UUID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Credenciales</h5>
+                                                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <script>
+                                                        function copiarClavePrivada(uuid) {
+                                                            var clavePrivada = document.getElementById('clave_privada_' + uuid).textContent;
+                                                            // Usar Clipboard API
+                                                            navigator.clipboard.writeText(clavePrivada).then(function() {
+                                                                alert('Clave privada copiada al portapapeles');
+                                                            }, function(err) {
+                                                                console.error('Error al copiar al portapapeles: ', err);
+                                                            });
+                                                        }
+                                                        function copiarClavePublica(uuid) {
+                                                            var clavePrivada = document.getElementById('clave_publica_' + uuid).textContent;
+                                                            // Usar Clipboard API
+                                                            navigator.clipboard.writeText(clavePrivada).then(function() {
+                                                                alert('Clave pública copiada al portapapeles');
+                                                            }, function(err) {
+                                                                console.error('Error al copiar al portapapeles: ', err);
+                                                            });
+                                                        }
+                                                    </script>                                                    
+                                                    <h5 class="h5">{{cc.usuario.nombre}}</h5>
+                                                    <h5 class="h5 text-success">Clave publica:</h5>
+                                                    <p class="fw-light" id="clave_publica_{{cc.usuario.UUID}}">{{cc.usuario.public_key}}</p>
+                                                    <h5 class="h5 text-success">Clave privada:</h5>
+                                                    <p class="fw-light" id="clave_privada_{{cc.usuario.UUID}}">{{cc.usuario.private_key}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                                                    <button type="button" class="btn btn-primary" onclick="copiarClavePublica('{{cc.usuario.UUID}}')">Copiar Clave Publica</button>
+                                                    <button type="button" class="btn btn-primary" onclick="copiarClavePrivada('{{cc.usuario.UUID}}')">Copiar Clave Privada</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16"
+                                    data-bs-toggle="modal" data-bs-target="#eliminar_licencia_{{cc.usuario.UUID}}">
+                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                                    </svg>
+                                    <div class="modal fade" id="eliminar_licencia_{{cc.usuario.UUID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Licencia</h5>
+                                                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="h5 text-warning">Estas seguro de eliminar la licencia del usuario <span class="text-danger">{{cc.usuario.nombre}}.</span></h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <a href="../../../../../../../../../../../../../../../../../admin/eliminar_licencia/{{cc.usuario.UID}}/" type="button" class="btn btn-danger">
+                                                        Eliminar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>    
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <th colspan="9" class="fs-5 text-center">
+                                No hay licencias registradas
+                            </th>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

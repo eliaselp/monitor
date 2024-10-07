@@ -1,0 +1,108 @@
+{% extends 'admin/base.html' %} 
+{% load static %} 
+{% block contenido %}
+<section class="pt-4">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-stretch gy-4">
+            <div class="col-lg-4">
+                <!-- Sales bar chart -->
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="h4 mb-0">Sales Difference</h3>
+                        <p class="text-sm fw-light">Lorem ipsum dolor sit</p>
+                        <div class="row align-items-end">
+                            <div class="col-lg-5">
+                                <p class="text-xl fw-light mb-0 text-dash-color-3">$740</p>
+                                <span class="d-block">May 2017</span>
+                                <small class="d-block">320 Sales</small>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class></div>
+                                    </div>
+                                </div>
+                                <canvas
+                                    id="salesBarChart1"
+                                    style="display: block; width: 153px; height: 76px"
+                                    width="153"
+                                    height="76"
+                                    class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Sales bar chart -->
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="h4 mb-0">Visit Statistics</h3>
+                        <p class="text-sm fw-light">Lorem ipsum dolor sit</p>
+                        <div class="row align-items-end">
+                            <div class="col-lg-5">
+                                <p
+                                    class="text-xl fw-light mb-0 text-dash-color-1">$457</p>
+                                <span class="d-block">May 2017</span><small
+                                    class="d-block">210 Sales</small>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class></div>
+                                    </div>
+                                </div>
+                                <canvas
+                                    id="visitPieChart"
+                                    style="display: block; width: 153px; height: 76px"
+                                    width="153"
+                                    height="76"
+                                    class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Sales bar chart -->
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="h4 mb-0">Sales Activities</h3>
+                        <p class="text-sm fw-light">Lorem ipsum dolor sit</p>
+                        <div class="row align-items-end">
+                            <div class="col-lg-5">
+                                <p
+                                    class="text-xl fw-light mb-0 text-dash-color-4">80%</p>
+                                <span class="d-block">May 2017</span><small
+                                    class="d-block">+35 Sales</small>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class></div>
+                                    </div>
+                                </div>
+                                <canvas
+                                    id="salesBarChart2"
+                                    style="display: block; width: 153px; height: 76px"
+                                    width="153"
+                                    height="76"
+                                    class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
