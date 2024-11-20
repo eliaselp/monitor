@@ -118,5 +118,5 @@ STATIC_ROOT = BASE_DIR / 'colectstatics'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_COOKIE_SECURE = True # O True si usas HTTPS
-CSRF_TRUSTED_ORIGINS = ['https://yungia.ddns.net','http://localhost:8000','http://localhost','https://www.yungia.ddns.net','https://eliasia.pythonanywhere.com']
+#CSRF_COOKIE_SECURE = True # O True si usas HTTPS
+#CSRF_TRUSTED_ORIGINS = ['https://yungia.ddns.net','http://localhost:8000','http://localhost','https://www.yungia.ddns.net','https://eliasia.pythonanywhere.com']
